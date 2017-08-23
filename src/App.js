@@ -100,7 +100,11 @@ class Board extends Component{
 
 	}
 	render(){
+		return(
+			<div class="board">
 
+			</div>
+		);
 	}
 
 }
