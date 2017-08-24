@@ -7,7 +7,7 @@ export default class TaskList extends Component {
 			return <Task id={item.id} key={item.id} taskName={item.taskName} desc={item.taskDesc} nameListArr={this.props.nameListArr} currentList={this.props.listName} changeState={this.props.changeState}/>
 		})
 		return (	
-			<div className="taskList">\
+			<div className="taskList">
 				<h4> {this.props.listName}</h4>
 				{tasks}
 			</div>

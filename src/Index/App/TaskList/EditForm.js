@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 
 export default class EditForm extends Component {
+    /*
+        props:
+        currentList
+        taskName
+        taskDesk
+        id
+        nameListArr
+        changeState({id, currentList, taskName, taskDesc, selectedList})
+    */
     constructor(props) {
         super(props);
         this.state = {

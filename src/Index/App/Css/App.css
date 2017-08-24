@@ -23,7 +23,7 @@
   to { transform: rotate(360deg); }
 }
 
-.taskList{
+.taskList, .addListName, .addTask{
   box-shadow: 2px 3px 10px -2px rgba(0,0,0,0.74);
   background-color: #36BBCE;
   width: 200px;
@@ -34,7 +34,6 @@
 .task{
     box-shadow: 2px 3px 10px -2px rgba(0,0,0,0.74);
   background-color: #FFB673;
-  /*width: 100%;*/
   margin: 5px;
   padding: 5px;
 }

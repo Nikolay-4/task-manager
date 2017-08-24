@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import TaskList from './TaskList.js';
+import AddTaskList from './AddTaskList.js';
+import AddTask from './AddTask.js';
 
 var task1 = {
 	taskName: "A",
@@ -34,7 +36,7 @@ var testList = [
 		tasks: [Object.assign({}, task1), Object.assign({}, task2), Object.assign({}, task3), Object.assign({}, task4)]
 	}
 ];
-		var nextTaskId = 1;
+
 
 export default class Board extends Component {
     constructor(props) {
@@ -43,20 +45,15 @@ export default class Board extends Component {
 			taskListArr: testList
 		};
 	}
-	changeState(data){
+	changeTask(data){
 		var curTaskListArr = this.state.taskListArr;
 		var listNameArr =  curTaskListArr.map((item) => {return item.listName});
 		var iCurList = listNameArr.indexOf(data.currentList);
 		var iSelectList = listNameArr.indexOf(data.selectedList);
-		console.log(curTaskListArr);
-		console.log(data)
-		console.log(listNameArr)
-		console.log()
-		console.log("icurlist " + iCurList);
-		if(iCurList === -1)
+		
+		if((iCurList === -1) || (iSelectList === -1))
 			return;
 		var iTask = curTaskListArr[iCurList].tasks.map((item) => {return item.id}).indexOf(data.id);
-		console.log("itask "+iTask);
 		if(iTask === -1)
 			return;
 		var task = curTaskListArr[iCurList].tasks[iTask];
@@ -70,7 +67,37 @@ export default class Board extends Component {
 		this.setState({
 			taskListArr: curTaskListArr
 		});
+		console.log("------", curTaskListArr);
 	}
+
+	addList(listName){
+		console.log(listName);
+		var newTaskListArr = this.state.taskListArr;
+		newTaskListArr.push({
+			listName: listName,
+			tasks: []
+		});
+		this.setState({
+			taskListArr: newTaskListArr
+		});
+	}
+
+	addTask(newTask){
+		console.log(newTask);
+		var curTaskListArr = this.state.taskListArr;
+		var listNameArr =  curTaskListArr.map((item) => {return item.listName});
+		var iList = listNameArr.indexOf(newTask.selectedList);
+		if(iList === -1)
+			return;
+		curTaskListArr[iList].tasks.push({
+			taskName: newTask.taskName,
+			taskDesc: newTask.taskDesc
+		});
+		this.setState({
+			taskListArr: curTaskListArr
+		});
+	}
+
 	render(){
 		var nameListArr = this.state.taskListArr.map((item, i, arr) => {
 			return item.listName;
@@ -81,12 +108,17 @@ export default class Board extends Component {
 				return item;
 			});
 			console.log(tasks)
-			return <TaskList listName={item.listName} key={item.listName} tasks={tasks} nameListArr={nameListArr} changeState={this.changeState.bind(this)}/>
+			return <TaskList listName={item.listName} key={item.listName} tasks={tasks} nameListArr={nameListArr} changeState={this.changeTask.bind(this)}/>
 		});
 		return(
-			<div className="board">
-				{listArr}
+			<div>
+				<div className="board">
+					{listArr}
+				</div>
+				<AddTask nameListArr={nameListArr} addTaskCallback={this.addTask.bind(this)}/>
+				<AddTaskList nameListArr={nameListArr} addListCallback={this.addList.bind(this)}/>
 			</div>
 		);
 	}
 }
+var nextTaskId = 0;
