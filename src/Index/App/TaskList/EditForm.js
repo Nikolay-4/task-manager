@@ -35,16 +35,13 @@ export default class EditForm extends Component {
     }
     render(){
         var options = this.props.nameListArr.map((item, i, arr) => {
-            if(item === this.props.currentList)
-                return <option selected value={item}>{item} </option>
-            else 
-                return <option value={item}>{item} </option>
+            return <option key={item} value={item}>{item} </option>
         });
         return (
             <div>
                 <input value={this.state.taskName} onChange={this.handleOnChangeName.bind(this)}/>
                 <input value={this.state.taskDesc} onChange={this.handleOnChangeDesc.bind(this)}/>
-                <select onChange={this.handleOnChangeList.bind(this)}>
+                <select onChange={this.handleOnChangeList.bind(this)} defaultValue={this.props.currentList}>
                     {options}
                 </select>
                 <button onClick={this.handleSave.bind(this)}>save</button>

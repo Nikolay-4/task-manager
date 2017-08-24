@@ -1,4 +1,40 @@
 import React, { Component } from 'react';
+import TaskList from './TaskList.js';
+
+var task1 = {
+	taskName: "A",
+	taskDesc: "desc1"
+}
+
+var task2 = {
+	taskName: "B",
+	taskDesc: "desc2"
+}
+
+var task3 = {
+	taskName: "C",
+	taskDesc: "desc3"
+}
+
+var task4 = {
+	taskName: "D",
+	taskDesc: "desc4"
+}
+var testList = [
+	{
+		listName: "list1",
+		tasks: [task1, task2]
+	},
+	{
+		listName: "list2",
+		tasks: [task3, task4]
+	},
+	{
+		listName: "list3",
+		tasks: [Object.assign({}, task1), Object.assign({}, task2), Object.assign({}, task3), Object.assign({}, task4)]
+	}
+];
+		var nextTaskId = 1;
 
 export default class Board extends Component {
     constructor(props) {
@@ -36,12 +72,16 @@ export default class Board extends Component {
 		});
 	}
 	render(){
-
 		var nameListArr = this.state.taskListArr.map((item, i, arr) => {
 			return item.listName;
 		});
 		var listArr = this.state.taskListArr.map ((item, i, arr) => {
-			return <TaskList listName={item.listName} tasks={item.tasks} nameListArr={nameListArr} changeState={this.changeState.bind(this)}/>
+			var tasks = item.tasks.map((item) => {
+				item.id = nextTaskId++;
+				return item;
+			});
+			console.log(tasks)
+			return <TaskList listName={item.listName} key={item.listName} tasks={tasks} nameListArr={nameListArr} changeState={this.changeState.bind(this)}/>
 		});
 		return(
 			<div className="board">
