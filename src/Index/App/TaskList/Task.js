@@ -11,9 +11,9 @@ export default class Task extends Component {
         }
     }
     render(){
-        var editForm = false;
+        let editForm = false;
         if(this.state.editable)
-            editForm = <EditForm id ={this.props.id} taskName={this.state.taskName} taskDesc={this.state.taskDesc} currentList={this.props.currentList} nameListArr={this.props.nameListArr} changeState={this.props.changeState}/>;
+            editForm = <EditForm id ={this.props.id} taskName={this.state.taskName} taskDesc={this.state.taskDesc} currentList={this.props.currentList} nameListArr={this.props.nameListArr} changeState={this.props.onSave}/>;
         return (
             <div className="task">
                 <div className="name">

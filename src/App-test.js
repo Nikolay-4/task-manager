@@ -3,19 +3,19 @@ import {findDOMNode} from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
 
-var task1 = {
+let task1 = {
 	id: 1,
 	taskName: "task1",
 	taskDesc: "desc1"
 }
 
-var task2 = {
+let task2 = {
 	id: 2,
 	taskName: "task2",
 	taskDesc: "desc2"
 }
 
-var testList = [
+let testList = [
 	{
 		listName: "list1",
 		tasks: [task1, task2]
@@ -51,7 +51,7 @@ class EditForm extends Component{
 		});
 	}
 	handleSave() {
-		this.props.changeState({
+		this.props.onSave({
 			id: this.props.id, 
 			currentList: this.props.currentList,
 			taskName: this.state.taskName,
@@ -60,7 +60,7 @@ class EditForm extends Component{
 		});
 	}
 	render(){
-		var options = this.props.nameListArr.map((item, i, arr) => {
+		let options = this.props.nameListArr.map((item, i, arr) => {
 			if(item === this.props.currentList)
 				return <option selected value={item}>{item} </option>
 			else 
@@ -89,9 +89,9 @@ class Task extends Component{
 		}
 	}
 	render(){
-		var editForm = false;
+		let editForm = false;
 		if(this.state.editable)
-			editForm = <EditForm id ={this.props.id} taskName={this.state.taskName} taskDesc={this.state.taskDesc} currentList={this.props.currentList} nameListArr={this.props.nameListArr} changeState={this.props.changeState}/>;
+			editForm = <EditForm id ={this.props.id} taskName={this.state.taskName} taskDesc={this.state.taskDesc} currentList={this.props.currentList} nameListArr={this.props.nameListArr} changeState={this.props.onSave}/>;
 		return (
 			<div className="task">
 				<div className="name">
@@ -117,8 +117,8 @@ class Task extends Component{
 
 class TaskList extends Component{ 
 	render() {
-		var tasks = this.props.tasks.map((item, i, arr) => {
-			return <Task id={item.id} taskName={item.taskName} desc={item.taskDesc} nameListArr={this.props.nameListArr} currentList={this.props.listName} changeState={this.props.changeState}/>
+		let tasks = this.props.tasks.map((item, i, arr) => {
+			return <Task id={item.id} taskName={item.taskName} desc={item.taskDesc} nameListArr={this.props.nameListArr} currentList={this.props.listName} changeState={this.props.onSave}/>
 		})
 		return (	
 			<div className="taskList">\
@@ -133,14 +133,14 @@ class Board extends Component{
 	constructor(props) {
 		super(props);
 		this.state = {
-			taskListArr: testList
+			taskListArray: testList
 		};
 	}
 	changeState(data){
-		var curTaskListArr = this.state.taskListArr;
-		var listNameArr =  curTaskListArr.map((item) => {return item.listName});
-		var iCurList = listNameArr.indexOf(data.currentList);
-		var iSelectList = listNameArr.indexOf(data.selectedList);
+		let curTaskListArr = this.state.taskListArray;
+		let listNameArr =  curTaskListArr.map((item) => {return item.listName});
+		let iCurList = listNameArr.indexOf(data.currentList);
+		let iSelectList = listNameArr.indexOf(data.selectedList);
 		console.log(curTaskListArr);
 		console.log(data)
 		console.log(listNameArr)
@@ -148,11 +148,11 @@ class Board extends Component{
 		console.log("icurlist " + iCurList);
 		if(iCurList === -1)
 			return;
-		var iTask = curTaskListArr[iCurList].tasks.map((item) => {return item.id}).indexOf(data.id);
+		let iTask = curTaskListArr[iCurList].tasks.map((item) => {return item.id}).indexOf(data.id);
 		console.log("itask "+iTask);
 		if(iTask === -1)
 			return;
-		var task = curTaskListArr[iCurList].tasks[iTask];
+		let task = curTaskListArr[iCurList].tasks[iTask];
 		task.taskName = data.taskName;
 		task.taskDesc = data.taskDesc;
 
@@ -161,15 +161,15 @@ class Board extends Component{
 			curTaskListArr[iSelectList].tasks.push(task);
 		}
 		this.setState({
-			taskListArr: curTaskListArr
+			taskListArray: curTaskListArr
 		});
 	}
 	render(){
 
-		var nameListArr = this.state.taskListArr.map((item, i, arr) => {
+		let nameListArr = this.state.taskListArray.map((item, i, arr) => {
 			return item.listName;
 		});
-		var listArr = this.state.taskListArr.map ((item, i, arr) => {
+		let listArr = this.state.taskListArray.map ((item, i, arr) => {
 			return <TaskList listName={item.listName} tasks={item.tasks} nameListArr={nameListArr} changeState={this.changeState.bind(this)}/>
 		});
 		return(
