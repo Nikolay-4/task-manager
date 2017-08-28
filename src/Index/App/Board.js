@@ -49,13 +49,13 @@ export default class Board extends Component {
     }
 
 
+
     handleOnChangeTask(data) {
 
         let currentTaskListArray = this.state.taskListArray;
         let listNameArray = currentTaskListArray.map((item) => {
             return item.listName
         });
-
         let indexCurrentList = listNameArray.indexOf(data.currentList);
         let indexSelectList = listNameArray.indexOf(data.selectedList);
         if ((indexCurrentList === -1) || (indexSelectList === -1)) return;
@@ -114,6 +114,43 @@ export default class Board extends Component {
         });
     }
 
+    handleOnDeleteTask(taskId, currentList){
+        let currentTaskListArray = this.state.taskListArray;
+        let listNameArray = currentTaskListArray.map((item) => {
+            return item.listName
+        });
+        let indexList = listNameArray.indexOf(currentList);
+
+        if (indexList === -1) return;
+
+        let indexTask = currentTaskListArray[indexList].tasks.map((item) => item.id).indexOf(taskId);
+        if (indexTask === -1) return;
+
+        currentTaskListArray[indexList].tasks.splice(indexTask, 1);
+        this.setState({
+            taskListArray: currentTaskListArray
+        });
+    }
+
+    handleOnDeleteTaskList(currentList){
+        if(currentList === undefined) return;
+        let currentTaskListArray = this.state.taskListArray;
+        let listNameArray = currentTaskListArray.map((item) => {
+            return item.listName
+        });
+        let indexList = listNameArray.indexOf(currentList);
+        console.log("-----------------", indexList);
+        console.log("-----------------", currentList);
+        /*let confirmResult = true;
+        if(currentTaskListArray[indexList].length > 0)
+            confirmResult = confirm("Task list is not empty. Do you really want to delete all tasks?");
+        if(!confirmResult) return;*/
+        currentTaskListArray.splice(indexList, 1);
+        this.setState({
+            taskListArray: currentTaskListArray
+        });
+    }
+
     render() {
 
         let nameListArray = this.state.taskListArray.map(item => item.listName);
@@ -122,7 +159,7 @@ export default class Board extends Component {
         let listArray = this.state.taskListArray.map(item => {
             let tasks = item.tasks.map(item => {
                 item.id = NEXT_TASK_ID++;
-                console.log(`Item ${item.name} has id = ${item.id}`);
+                console.log(`Item ${item.taskName} has id = ${item.id}`);
                 return item;
             });
 
@@ -134,6 +171,8 @@ export default class Board extends Component {
                     tasks={tasks}
                     nameListArray={nameListArray}
                     handleOnChangeTask={this.handleOnChangeTask.bind(this)}
+                    handleOnDeleteTask={this.handleOnDeleteTask.bind(this)}
+                    handleOnDeleteTaskList={this.handleOnDeleteTaskList.bind(this)}
                 />
             );
         });

@@ -31,16 +31,22 @@ export default class Task extends Component {
                 <div className="description">
                     {this.state.taskDesc}
                 </div>
+                <button onClick={() =>{this.handleOnDelete()}}> X </button>
                 <button onClick={() => {
-                    this.handleOnClick();
-                }}> edit
+                    this.handleOnEdit();
+                }}>
+                    edit
                 </button>
                 {editTask}
             </div>
         );
     }
 
-    handleOnClick() {
+    handleOnDelete(){
+        this.props.handleOnDeleteTask(this.props.id, this.props.currentList);
+    }
+
+    handleOnEdit() {
         this.setState({
             editable: true
         });
@@ -52,5 +58,6 @@ Task.propTypes = {
     desc: PropTypes.string,
     currentList: PropTypes.string.isRequired,
     nameListArray: PropTypes.arrayOf(PropTypes.string).isRequired,
-    handleOnChangeTask: PropTypes.func.isRequired
+    handleOnChangeTask: PropTypes.func.isRequired,
+    handleOnDeleteTask: PropTypes.func.isRequired
 };
