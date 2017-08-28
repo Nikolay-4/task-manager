@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import EditForm from './EditForm';
+import React, {Component} from 'react';
+import EditTask from './EditTask';
+import PropTypes from 'prop-types';
 
 export default class Task extends Component {
     constructor(props) {
@@ -10,10 +11,18 @@ export default class Task extends Component {
             editable: false
         }
     }
-    render(){
-        let editForm = false;
-        if(this.state.editable)
-            editForm = <EditForm id ={this.props.id} taskName={this.state.taskName} taskDesc={this.state.taskDesc} currentList={this.props.currentList} nameListArr={this.props.nameListArr} changeState={this.props.onSave}/>;
+
+    render() {
+        let editTask = false;
+        if (this.state.editable)
+            editTask = <EditTask
+                id={this.props.id}
+                taskName={this.state.taskName}
+                taskDesc={this.state.taskDesc}
+                currentList={this.props.currentList}
+                nameListArray={this.props.nameListArray}
+                handleOnChangeTask={this.props.handleOnChangeTask}
+            />;
         return (
             <div className="task">
                 <div className="name">
@@ -22,14 +31,26 @@ export default class Task extends Component {
                 <div className="description">
                     {this.state.taskDesc}
                 </div>
-                <button onClick={() => {this.handleClick();}}> edit </button>
-                {editForm}
+                <button onClick={() => {
+                    this.handleOnClick();
+                }}> edit
+                </button>
+                {editTask}
             </div>
         );
     }
-    handleClick(){
+
+    handleOnClick() {
         this.setState({
             editable: true
         });
     }
 }
+
+Task.propTypes = {
+    taskName: PropTypes.string,
+    desc: PropTypes.string,
+    currentList: PropTypes.string.isRequired,
+    nameListArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+    handleOnChangeTask: PropTypes.func.isRequired
+};
