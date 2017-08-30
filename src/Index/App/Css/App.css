@@ -1,39 +1,44 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.taskList, .addListName, .addTask{
+.taskList{
   box-shadow: 2px 3px 10px -2px rgba(0,0,0,0.74);
   background-color: #36BBCE;
-  width: 200px;
+  /*width: 200px;*/
   margin: 5px;
   padding: 5px;
 }
 
-.task{
-    box-shadow: 2px 3px 10px -2px rgba(0,0,0,0.74);
-  background-color: #FFB673;
-  margin: 5px;
-  padding: 5px;
+.panel-default>.panel-heading{
+  background-color: rgba(255,174,46,0.74);
 }
+
+.right-menu{
+  background-color: #28a4c9;
+
+}
+
+.addTask{
+  margin: 0px;
+}
+
+.addTask > .panel-heading{
+  background-color: rgba(223,217,3,0.74);
+}
+
+.addTask > .panel-body{
+  padding: 0px;
+  background-color: rgba(205,217,211,0.74);
+}
+.editTask{
+  margin: 0px;
+}
+.boardControl button{
+  background-color: #67b168;
+}
+/*.task{*/
+    /*box-shadow: 2px 3px 10px -2px rgba(0,0,0,0.74);*/
+  /*background-color: #FFB673;*/
+  /*margin: 5px;*/
+  /*padding: 5px;*/
+/*}*/

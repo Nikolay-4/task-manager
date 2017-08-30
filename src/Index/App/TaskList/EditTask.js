@@ -15,6 +15,14 @@ export default class EditTask extends Component {
         this.setState({
             taskName: e.target.value
         });
+        console.log("start", this);
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log("will receive props:", nextProps);
+        this.setState({
+            selectedList: nextProps.currentList
+        });
     }
 
     handleOnChangeDesc(e) {
@@ -37,17 +45,18 @@ export default class EditTask extends Component {
             taskDesc: this.state.taskDesc,
             selectedList: this.state.selectedList
         });
+        console.log("edit task state", this.state);
     }
 
     render() {
         return (
-            <div>
-                <input value={this.state.taskName} onChange={this.handleOnChangeName.bind(this)}/>
-                <input value={this.state.taskDesc} onChange={this.handleOnChangeDesc.bind(this)}/>
-                <select onChange={this.handleOnChangeList.bind(this)} defaultValue={this.props.currentList}>
+            <div className="well well-sm editTask">
+                <input className="form-control" placeholder={this.state.taskName} onChange={this.handleOnChangeName.bind(this)}/>
+                <input className="form-control" placeholder={this.state.taskDesc} onChange={this.handleOnChangeDesc.bind(this)}/>
+                <select className="form-control" onChange={this.handleOnChangeList.bind(this)} defaultValue={this.state.selectedList}>
                     {this.props.nameListArray.map(item => <option key={item} value={item}>{item}</option>)}
                 </select>
-                <button onClick={() => this.handleOnSave()}>save</button>
+                <button className="btn btn-success" onClick={() => this.handleOnSave()}>save</button>
             </div>
         );
     }

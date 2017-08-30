@@ -27,10 +27,14 @@ export default class AddTaskList extends Component {
 
     render() {
         return (
-            <div className="addListName">
-                <h4>Add new task list</h4>
-                <input value={this.state.listName} onChange={this.handleChangeListName.bind(this)}/>
-                <button onClick={this.handleAddBtn.bind(this)}>Add</button>
+            <div className="panel panel-default">
+                <div className="panel-heading">
+                    <h4>Add new task list</h4>
+                </div>
+                <div className="panel-body">
+                        <input className="form-control" value={this.state.listName} onChange={this.handleChangeListName.bind(this)}/>
+                        <button className="btn btn-success" onClick={this.handleAddBtn.bind(this)}>Add</button>
+                </div>
             </div>
         );
     }

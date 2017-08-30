@@ -24,19 +24,22 @@ export default class Task extends Component {
                 handleOnChangeTask={this.props.handleOnChangeTask}
             />;
         return (
-            <div className="task">
-                <div className="name">
-                    {this.state.taskName}
+            <div className="panel panel-info">
+                <div className="panel-heading">
+                    <div className="row">
+                        <p className="col-sm-9">{this.state.taskName}</p>
+                        <button className="col-sm-1 btn btn-sm btn-link" onClick={() => {this.handleOnEdit()}}>
+                            <span className="glyphicon glyphicon-edit"> </span>
+                        </button>
+
+                        <button className="col-sm-1 btn btn-sm btn-link" onClick={() =>{this.handleOnDelete()}}>
+                            <span className="glyphicon glyphicon-remove-circle"></span>
+                        </button>
+                    </div>
                 </div>
-                <div className="description">
-                    {this.state.taskDesc}
+                <div className="panel-body">
+                    <span className="">{this.state.taskDesc}</span>
                 </div>
-                <button onClick={() =>{this.handleOnDelete()}}> X </button>
-                <button onClick={() => {
-                    this.handleOnEdit();
-                }}>
-                    edit
-                </button>
                 {editTask}
             </div>
         );
